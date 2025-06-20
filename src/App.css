@@ -1,0 +1,122 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #e9f0fa
+    url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80")
+    no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  margin: 0;
+}
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 2rem;
+  background: rgba(255, 255, 255, 0.85);
+  width: 100vw;
+}
+.title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #2d3a4b;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+}
+.error-message {
+  color: #e53e3e;
+  background: #fff0f0;
+  border: 1px solid #e53e3e;
+  border-radius: 8px;
+  padding: 1rem 2rem;
+  margin: 1rem 0;
+  font-size: 1.1rem;
+  font-family: "Poppins", sans-serif;
+  animation: fadeIn 0.5s;
+}
+@media (max-width: 600px) {
+  .app-container {
+    padding-top: 0.5rem;
+  }
+  .title {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.app-bg {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #e9f0fa
+    url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80")
+    no-repeat center center fixed;
+  background-size: cover;
+  width: 100vw;
+}
+
+main {
+  flex: 1 0 auto;
+  width: 100vw;
+  margin: 0;
+  padding: 2rem 0 3rem 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  main {
+    padding: 1rem 0 2rem 0;
+  }
+}
+
+/* Remove old demo styles if present */
+#root,
+.card,
+.logo,
+.read-the-docs {
+  all: unset;
+}

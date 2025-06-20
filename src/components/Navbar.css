@@ -1,0 +1,174 @@
+.navbar {
+  width: 100vw;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 12px rgba(79, 140, 255, 0.07);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Navbar kanan */
+  padding: 0.7rem 1.5rem 0.7rem 1.2rem; /* Kurangi padding kanan */
+  box-sizing: border-box;
+}
+
+/* Hapus padding pada body agar tidak ada gap antara header dan hero section */
+body {
+  padding-top: 0 !important;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #4f8cff;
+  cursor: pointer;
+  margin-right: 2.5rem; /* Jarak ke links */
+}
+
+.navbar-logo img {
+  width: 38px;
+  height: 38px;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-right: 0;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.navbar-links li {
+  display: flex;
+}
+
+.navbar-links a {
+  color: #2d3a4b;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 0.3rem 1.1rem;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Hapus efek hover dan active default pada semua link navbar kecuali prediksi */
+.navbar-links a:not(.prediksi-btn):hover,
+.navbar-links a:not(.prediksi-btn).active {
+  background: #e9f4ff;
+  color: #4f8cff;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+/* Paksa style prediksi-btn selalu sama di semua state dan halaman */
+.navbar-links a.prediksi-btn,
+.navbar-links a.prediksi-btn:hover,
+.navbar-links a.prediksi-btn:active,
+.navbar-links a.prediksi-btn:focus,
+.navbar-links a.prediksi-btn.active {
+  background: #2563eb !important;
+  color: #fff !important;
+  border: 2px solid #2563eb !important;
+  box-shadow: 0 4px 16px rgba(79, 140, 255, 0.13) !important;
+  outline: none !important;
+  text-decoration: none !important;
+  transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
+}
+
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 0.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.bar {
+  width: 26px;
+  height: 3px;
+  background: #4f8cff;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+/* Konsistensi efek hover dan active pada tombol nav-btn-link di navbar */
+.nav-btn-link {
+  background: none;
+  color: #2d3a4b;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 0.3rem 1.1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.nav-btn-link:hover,
+.nav-btn-link.active,
+.nav-btn-link:focus {
+  background: #e9f4ff;
+  color: #4f8cff;
+  outline: none;
+  box-shadow: none;
+}
+
+@media (max-width: 800px) {
+  .navbar {
+    padding: 0.7rem 1rem 0.7rem 0.7rem;
+  }
+  .navbar-logo {
+    margin-right: 1.2rem;
+  }
+  .navbar-links {
+    gap: 1rem;
+    margin-right: 0.2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-wrap: wrap;
+    padding: 0.7rem 0.5rem 0.7rem 0.5rem;
+  }
+  .navbar-links {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    flex-direction: column;
+    width: 100vw;
+    max-width: none;
+    box-sizing: border-box;
+    box-shadow: 0 2px 12px rgba(79, 140, 255, 0.13);
+    padding: 1rem 0.5rem;
+    gap: 0.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: all 0.3s;
+    margin-right: 0;
+    overflow-x: auto;
+  }
+  .navbar-links.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+  .navbar-toggle {
+    display: flex;
+    margin-left: auto;
+  }
+}
