@@ -282,196 +282,301 @@
 .about-diabetes-section {
   position: relative;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 3.5rem;
+  gap: 0;
   background: none;
-  border-radius: 0 64px 0 64px/64px 0 64px 0;
+  border-radius: 0;
   box-shadow: none;
-  padding: 0 0 4.5rem 0;
+  padding: 0;
   margin: 0 0 3.5rem 0;
-  flex-wrap: wrap;
+  min-height: 420px;
+  z-index: 1;
   overflow: visible;
-  min-height: 340px;
 }
-.about-diabetes-section::before {
-  content: '';
+.about-diabetes-svg-bg {
   position: absolute;
   left: -80px;
-  top: 40px;
-  width: 220px;
-  height: 220px;
-  background: radial-gradient(circle at 60% 40%, #4f8cff22 60%, transparent 100%);
+  top: 0;
+  width: 480px;
+  height: 480px;
   z-index: 0;
-  filter: blur(24px);
-  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.22;
+  filter: blur(2px);
 }
 .about-diabetes-img {
-  flex: 1 1 340px;
-  position: relative;
-  z-index: 1;
+  flex: 1 1 420px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-end;
+  min-width: 320px;
+  z-index: 2;
+  position: relative;
+}
+.about-diabetes-img .img-anim-bg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 440px;
+  height: 440px;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle at 60% 40%, #4f8cff33 60%, transparent 100%);
+  animation: pulseAnim 3s infinite alternate;
+  filter: blur(8px);
+}
+@keyframes pulseAnim {
+  0% { opacity: 0.18; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0.32; transform: translate(-50%, -50%) scale(1.12); }
 }
 .about-diabetes-img img {
-  width: 380px;
-  max-width: 95vw;
-  border-radius: 64px 0 64px 0/0 64px 0 64px;
-  box-shadow: 0 8px 32px #4f8cff11;
+  width: 320px;
+  max-width: 90vw;
+  border-radius: 50%;
+  box-shadow: 0 24px 64px #4f8cff22;
   object-fit: cover;
-  position: relative;
-  left: -32px;
-  top: 12px;
-  border: 4px solid #fff;
+  border: 6px solid #fff;
   background: #e0e7ff;
   transition: box-shadow 0.3s, transform 0.3s;
+  transform: rotate(0deg) scale(1.04);
+  animation: floatImg 6s ease-in-out infinite alternate;
+  position: relative;
+  z-index: 2;
 }
 .about-diabetes-img img:hover {
-  box-shadow: 0 16px 48px #2563eb33;
-  transform: scale(1.04) rotate(-2deg);
+  box-shadow: 0 32px 96px #2563eb33;
+  transform: scale(1.08) rotate(2deg);
 }
 .about-diabetes-text {
-  flex: 2 1 400px;
-  max-width: 520px;
-  z-index: 1;
-  background: rgba(255,255,255,0.7);
-  border-radius: 32px 0 32px 0/0 32px 0 32px;
-  padding: 2.5rem 2rem;
-  box-shadow: 0 2px 16px #4f8cff11;
-  margin-left: -60px;
+  flex: 2 1 500px;
+  max-width: 600px;
+  background: none;
+  border-radius: 0;
+  padding: 0 0 0 2vw;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.2rem;
 }
 .about-diabetes-text h2 {
   color: #2563eb;
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  font-weight: 800;
+  font-size: 2.7rem;
+  margin-bottom: 0.7rem;
+  font-weight: 900;
   letter-spacing: 1px;
+  line-height: 1.1;
+  background: linear-gradient(90deg, #4f8cff 40%, #e0e7ff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .about-diabetes-text p {
   color: #2d3a4b;
-  font-size: 1.18rem;
+  font-size: 1.32rem;
   font-weight: 500;
-  line-height: 1.6;
+  line-height: 1.7;
+  max-width: 520px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 32px 0 32px 0/0 32px 0 32px;
+  padding: 1.2rem 1.5rem;
+  box-shadow: 0 2px 16px #4f8cff11;
+  backdrop-filter: blur(2px);
+}
+.about-diabetes-accent {
+  position: absolute;
+  left: 0;
+  bottom: -40px;
+  width: 100%;
+  height: 80px;
+  z-index: 1;
+  pointer-events: none;
 }
 @media (max-width: 900px) {
   .about-diabetes-section {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
     padding: 0 0.7rem 2rem 0.7rem;
     min-height: unset;
   }
   .about-diabetes-img img {
-    left: 0;
-    top: 0;
     width: 95vw;
+    border-radius: 60% 40% 60% 40%/40% 60% 40% 60%;
   }
   .about-diabetes-text {
-    margin-left: 0;
-    padding: 1.5rem 1rem;
+    padding: 0;
   }
 }
+
 .how-it-works-section {
   position: relative;
-  background: linear-gradient(120deg, #f7fafc 60%, #e0e7ff 100%);
-  border-radius: 0 64px 0 64px/64px 0 64px 0;
-  box-shadow: 0 8px 32px 0 rgba(79,140,255,0.09);
-  padding: 3.5rem 2.5rem;
-  margin: 2.5rem 0 3.5rem 0;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  margin: 0 0 3.5rem 0;
   overflow: visible;
+  z-index: 1;
+}
+.how-it-works-svg-bg {
+  position: absolute;
+  right: -80px;
+  bottom: 0;
+  width: 480px;
+  height: 480px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  filter: blur(2px);
 }
 .how-it-works-section h2 {
   text-align: center;
   color: #2563eb;
-  font-size: 2rem;
-  margin-bottom: 2.2rem;
-  font-weight: 800;
+  font-size: 2.7rem;
+  margin-bottom: 3.2rem;
+  font-weight: 900;
   letter-spacing: 1px;
-  z-index: 1;
+  z-index: 2;
   position: relative;
+  line-height: 1.1;
+  background: linear-gradient(90deg, #4f8cff 40%, #e0e7ff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .steps-list {
   display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-  margin: 0 auto;
-  max-width: 600px;
-}
-.step-card {
-  background: rgba(255,255,255,0.85);
-  border-radius: 48px 16px 48px 16px/16px 48px 16px 48px;
-  box-shadow: 0 4px 32px #4f8cff11;
-  padding: 2rem 1.5rem;
-  display: flex;
   flex-direction: row;
-  align-items: center;
-  gap: 1.5rem;
-  min-width: 260px;
-  max-width: 480px;
-  border: 1.5px solid #e0e7ff;
+  gap: 4vw;
+  align-items: flex-end;
+  justify-content: center;
   position: relative;
   z-index: 2;
-  transition: box-shadow 0.2s, transform 0.2s;
-  margin-left: 40px;
+  margin: 0 auto;
+  max-width: 1100px;
 }
-.step-card:hover {
-  box-shadow: 0 8px 32px #2563eb22;
-  transform: scale(1.03) translateY(-4px);
-}
-.step-card img {
-  width: 74px;
-  height: 74px;
-  object-fit: cover;
-  border-radius: 32px 12px 32px 12px/12px 32px 12px 32px;
-  box-shadow: 0 2px 8px #4f8cff22;
-  background: #e0e7ff;
-}
-.step-card h3 {
-  color: #2563eb;
-  font-size: 1.1rem;
-  margin-bottom: 0.3rem;
-  font-weight: 700;
-}
-.step-card p {
-  color: #2d3a4b;
-  font-size: 1.05rem;
-  font-weight: 500;
-}
-/* Vertical timeline line */
 .steps-list::before {
   content: '';
   position: absolute;
-  left: 32px;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: linear-gradient(180deg, #4f8cff 0%, #e0e7ff 100%);
-  border-radius: 2px;
-  z-index: 0;
+  top: 60px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(90deg, #4f8cff 0%, #e0e7ff 100%);
+  border-radius: 4px;
+  z-index: 1;
+  width: 100%;
+  margin: 0 auto;
+  animation: timelineGlow 3s ease-in-out infinite alternate;
+}
+@keyframes timelineGlow {
+  0% { box-shadow: 0 0 0 #4f8cff00; }
+  100% { box-shadow: 0 0 32px #4f8cff55; }
 }
 .step-card {
-  margin-left: 32px;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  min-width: 220px;
+  max-width: 320px;
+  border: none;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+}
+.step-card .step-circle {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, #4f8cff 60%, #e0e7ff 100%);
+  border-radius: 50% 40% 60% 50%/50% 60% 40% 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px #4f8cff22;
+  margin-bottom: 1.2rem;
+  border: 4px solid #fff;
+  transition: box-shadow 0.2s, transform 0.2s;
+  animation: floatImg 7s ease-in-out infinite alternate;
+}
+.step-card:hover .step-circle {
+  box-shadow: 0 16px 48px #2563eb44;
+  transform: scale(1.08) rotate(-2deg);
+}
+.step-card img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 50%;
+  background: #e0e7ff;
+  border: none;
+  box-shadow: none;
+}
+.step-card h3 {
+  color: #2563eb;
+  font-size: 1.18rem;
+  margin-bottom: 0.3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+}
+.step-card p {
+  color: #2d3a4b;
+  font-size: 1.13rem;
+  font-weight: 500;
+  line-height: 1.6;
+  text-align: center;
+}
+.step-card p, .step-card h3 {
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(6px);
+  border-radius: 18px 8px 18px 8px/8px 18px 8px 18px;
+  box-shadow: 0 2px 12px #4f8cff11;
+  padding: 0.7rem 1.1rem;
+  margin: 0.2rem 0;
+  display: inline-block;
 }
 @media (max-width: 900px) {
+  .about-diabetes-section {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0 0.7rem 2rem 0.7rem;
+    min-height: unset;
+  }
+  .about-diabetes-img img {
+    width: 95vw;
+    border-radius: 60% 40% 60% 40%/40% 60% 40% 60%;
+  }
+  .about-diabetes-text {
+    padding: 0;
+  }
   .how-it-works-section {
-    padding: 2rem 0.7rem;
+    padding: 2rem 0.7rem 2rem 0.7rem;
   }
   .steps-list {
+    flex-direction: column;
+    gap: 2.5rem;
     max-width: 98vw;
+  }
+  .steps-list::before {
+    display: none;
   }
   .step-card {
     min-width: 0;
     max-width: 98vw;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.7rem;
-    margin-left: 24px;
-  }
-  .steps-list::before {
-    left: 16px;
+    align-items: center;
+    gap: 1.2rem;
   }
 }
 @media (max-width: 600px) {
@@ -577,51 +682,60 @@
 }
 .contact-main {
   position: relative;
-  background: #fff;
-  border-radius: 0 64px 0 64px/64px 0 64px 0;
+  background: linear-gradient(120deg, #f7fafc 60%, #e0e7ff 100%);
+  border-radius: 0 64px 0 64px/0 64px 0 64px;
   box-shadow: 0 8px 32px 0 rgba(79,140,255,0.09);
-  padding: 3.5rem 2.5rem;
-  margin: 3.5rem 0 2.5rem 0;
+  padding: 4rem 0 4.5rem 0;
+  margin: 0 0 3.5rem 0;
   overflow: visible;
   min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+.contact-main .bg-motif {
+  display: none;
 }
 .contact-main::before {
-  border-radius: 0 64px 0 64px/64px 0 64px 0;
   content: '';
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=900&q=80') center/cover no-repeat;
-  opacity: 0.13;
-  filter: blur(2.5px);
+  left: -80px;
+  top: -60px;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle at 40% 40%, #4f8cff33 60%, transparent 100%);
   z-index: 0;
+  filter: blur(12px);
+  border-radius: 50%;
+  animation: blobMove 8s ease-in-out infinite alternate;
 }
 .contact-title {
   text-align: center;
   color: #2563eb;
-  font-size: 2rem;
-  margin-bottom: 2.2rem;
+  font-size: 2.2rem;
+  margin-bottom: 3.5rem;
   font-weight: 800;
   letter-spacing: 1px;
   z-index: 1;
-  position: relative;
 }
 .contact-content {
   display: flex;
-  gap: 2.5rem;
+  flex-direction: row;
+  gap: 3vw;
   justify-content: center;
   align-items: flex-start;
   z-index: 1;
   position: relative;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 900px;
 }
 .contact-form {
-  background: rgba(255,255,255,0.85);
-  border-radius: 24px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 32px 0 32px 0/0 32px 0 32px;
   box-shadow: 0 2px 16px #4f8cff11;
-  padding: 2rem 1.5rem;
+  padding: 2.2rem 1.7rem;
   min-width: 260px;
   max-width: 340px;
   flex: 1 1 320px;
@@ -678,17 +792,17 @@
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  background: rgba(255,255,255,0.85);
-  border-radius: 12px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 24px 8px 24px 8px/8px 24px 8px 24px;
   box-shadow: 0 2px 8px #4f8cff11;
-  padding: 0.7rem 1.1rem;
-  font-size: 1.05rem;
+  padding: 1.1rem 1.5rem;
+  font-size: 1.13rem;
   color: #2563eb;
   font-weight: 600;
 }
 .contact-icon-info img {
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
 }
 @media (max-width: 900px) {
   .contact-main {
@@ -697,6 +811,7 @@
   }
   .contact-content {
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 2.5rem;
+    max-width: 98vw;
   }
 }
