@@ -27,8 +27,8 @@ const initialState = {
 
 const genHlthOptions = [1, 2, 3, 4, 5];
 const sexOptions = [
-  { value: 0, label: "Female" },
-  { value: 1, label: "Male" },
+  { value: "Female", label: "Female" },
+  { value: "Male", label: "Male" },
 ];
 const yesNoOptions = [
   { value: 0, label: "No" },
@@ -57,9 +57,11 @@ function InputForm({ onPredict, disabled }) {
     e.preventDefault();
     if (!validate()) return;
     const formatted = { ...values };
-    // Convert string to number for all fields
+    // Convert string to number for all fields kecuali Sex
     Object.keys(formatted).forEach((k) => {
-      formatted[k] = Number(formatted[k]);
+      if (k !== "Sex") {
+        formatted[k] = Number(formatted[k]);
+      }
     });
     onPredict(formatted);
   };

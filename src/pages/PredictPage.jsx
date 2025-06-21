@@ -19,10 +19,14 @@ function PredictPage() {
     try {
       const axios = (await import("axios")).default;
       const response = await axios.post(
-        "https://your-backend-url/predict",
+        "http://localhost:8000/predict",
         values
       );
-      setPrediction(response.data);
+      if (response.data.prediction) {
+        setPrediction(response.data);
+      } else if (response.data.error) {
+        setError("Error: " + response.data.error);
+      }
     } catch (err) {
       setError("Gagal melakukan prediksi. Silakan coba lagi.");
     } finally {

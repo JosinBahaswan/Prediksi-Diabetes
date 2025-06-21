@@ -1,18 +1,23 @@
 import "./PredictionResult.css";
 
 const interpretResult = (pred) => {
-  switch (pred) {
-    case 0:
+  switch (String(pred).toLowerCase()) {
+    case "0":
+    case "no":
       return {
         label: "Tidak Diabetes",
         desc: "Anda tidak terindikasi diabetes.",
       };
-    case 1:
+    case "1":
+    case "pre-diabetes":
+    case "prediabetes":
       return {
         label: "Prediabetes",
         desc: "Anda berisiko prediabetes. Jaga pola hidup sehat.",
       };
-    case 2:
+    case "2":
+    case "yes":
+    case "diabetes":
       return {
         label: "Diabetes",
         desc: "Anda terindikasi diabetes. Segera konsultasi ke dokter.",
@@ -23,7 +28,7 @@ const interpretResult = (pred) => {
 };
 
 function PredictionResult({ inputValues, prediction }) {
-  const info = interpretResult(prediction.result ?? prediction);
+  const info = interpretResult(prediction.prediction ?? prediction);
   return (
     <div className="prediction-result">
       <h2>Hasil Prediksi</h2>
