@@ -1,6 +1,0 @@
-# requirements.txt untuk backend prediksi diabetes
-fastapi
-uvicorn
-scikit-learn
-pandas
-joblib
