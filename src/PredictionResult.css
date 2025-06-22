@@ -1,1 +1,106 @@
- 
+/* PredictionResult.css - UI/UX lebih profesional dan keren */
+.prediction-result {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: rgba(255,255,255,0.97);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  padding: 2.5rem 2rem 2rem 2rem;
+  animation: fadeIn 0.7s;
+}
+
+.result-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.result-label {
+  font-size: 2.1rem;
+  font-weight: 700;
+  padding: 0.7rem 2.2rem;
+  border-radius: 30px;
+  margin-bottom: 0.7rem;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+  transition: background 0.3s, color 0.3s;
+}
+.result-tidakdiabetes {
+  background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+  color: #1b3a2f;
+}
+.result-prediabetes {
+  background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
+  color: #6b4f00;
+}
+.result-diabetes {
+  background: linear-gradient(90deg, #f9536b 0%, #b91d73 100%);
+  color: #fff;
+}
+.result-desc {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.input-table {
+  width: 100%;
+  margin: 1.5rem 0 2rem 0;
+  border-collapse: collapse;
+  background: #f8fafc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(44, 62, 80, 0.07);
+}
+.input-table td {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 1rem;
+}
+.input-table tr:last-child td {
+  border-bottom: none;
+}
+.metrics-section {
+  margin-top: 2.5rem;
+  background: #f4f8fb;
+  border-radius: 14px;
+  padding: 1.5rem 1rem;
+  box-shadow: 0 1px 6px rgba(44, 62, 80, 0.06);
+}
+.cm-table {
+  width: 100%;
+  margin: 1rem 0 1.5rem 0;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(44, 62, 80, 0.07);
+}
+.cm-table th, .cm-table td {
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+}
+.cm-table tr:last-child td {
+  border-bottom: none;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .prediction-result {
+    padding: 1.2rem 0.5rem;
+  }
+  .result-label {
+    font-size: 1.2rem;
+    padding: 0.5rem 1.2rem;
+  }
+  .input-table td, .cm-table th, .cm-table td {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.5rem;
+  }
+}

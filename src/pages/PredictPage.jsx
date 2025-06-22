@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import InputForm from "../InputForm";
 import PredictionResult from "../PredictionResult";
@@ -10,6 +10,14 @@ function PredictPage() {
   const [prediction, setPrediction] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [metrics, setMetrics] = useState(null);
+
+  useEffect(() => {
+    // Fetch metrics (akurasi, confusion matrix, label)
+    fetch("http://localhost:8000/metrics")
+      .then((res) => res.json())
+      .then((data) => setMetrics(data));
+  }, []);
 
   const handlePredict = async (values) => {
     setInputValues(values);
@@ -22,7 +30,7 @@ function PredictPage() {
         "http://localhost:8000/predict",
         values
       );
-      if (response.data.prediction) {
+      if (response.data && "prediction" in response.data) {
         setPrediction(response.data);
       } else if (response.data.error) {
         setError("Error: " + response.data.error);
@@ -46,9 +54,15 @@ function PredictPage() {
       <InputForm onPredict={handlePredict} disabled={loading} />
       {loading && <LoadingSpinner />}
       {error && <div className="error-message">{error}</div>}
-      {prediction && inputValues && (
-        <PredictionResult inputValues={inputValues} prediction={prediction} />
+      {prediction && (
+        <PredictionResult
+          inputValues={inputValues}
+          prediction={prediction}
+          metrics={metrics}
+        />
       )}
+      {/* Tampilkan metrik jika tidak sedang prediksi */}
+      {!prediction && metrics && <PredictionResult metrics={metrics} />}
     </motion.main>
   );
 }
