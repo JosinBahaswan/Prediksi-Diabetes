@@ -14,7 +14,7 @@ function PredictPage() {
 
   useEffect(() => {
     // Fetch metrics (akurasi, confusion matrix, label)
-    fetch("http://localhost:8000/metrics")
+    fetch("https://backend-web-diabetes-production.up.railway.app/metrics")
       .then((res) => res.json())
       .then((data) => setMetrics(data));
   }, []);
@@ -27,7 +27,7 @@ function PredictPage() {
     try {
       const axios = (await import("axios")).default;
       const response = await axios.post(
-        "http://localhost:8000/predict",
+        "https://backend-web-diabetes-production.up.railway.app/predict",
         values
       );
       if (response.data && "prediction" in response.data) {
