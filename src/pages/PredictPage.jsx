@@ -14,7 +14,8 @@ function PredictPage() {
 
   useEffect(() => {
     // Fetch metrics (akurasi, confusion matrix, label)
-    fetch("https://backend-web-diabetes-production.up.railway.app/metrics")
+    // fetch("https://backend-web-diabetes-production.up.railway.app/metrics")
+    fetch("http://localhost:8000/metrics")
       .then((res) => res.json())
       .then((data) => setMetrics(data));
   }, []);
@@ -27,7 +28,8 @@ function PredictPage() {
     try {
       const axios = (await import("axios")).default;
       const response = await axios.post(
-        "https://backend-web-diabetes-production.up.railway.app/predict",
+        // "https://backend-web-diabetes-production.up.railway.app/predict",
+        "http://localhost:8000/predict",
         values
       );
       if (response.data && "prediction" in response.data) {
