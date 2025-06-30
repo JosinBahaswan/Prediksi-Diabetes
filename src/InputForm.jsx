@@ -1,6 +1,27 @@
 import { useState } from "react";
 import "./InputForm.css";
 
+// Fitur yang dipakai model hasil training undersample (sesuai dengan feature_names_in_)
+const FEATURES = [
+  "HighBP",
+  "HighChol",
+  "CholCheck",
+  "BMI",
+  "Smoker",
+  "Stroke",
+  "HeartDiseaseorAttack",
+  "PhysActivity",
+  "Fruits",
+  "Veggies",
+  "HvyAlcoholConsump",
+  "GenHlth",
+  "DiffWalk",
+  "Sex",
+  "Age",
+  "Education",
+  "Income",
+];
+
 const initialState = {
   HighBP: "",
   HighChol: "",
@@ -12,17 +33,14 @@ const initialState = {
   PhysActivity: "",
   Fruits: "",
   Veggies: "",
-  HvyAlcoholConsump: "",
-  AnyHealthcare: "",
-  NoDocbcCost: "",
-  GenHlth: "",
-  MentHlth: "",
-  PhysHlth: "",
-  DiffWalk: "",
+  HvyAlcoholConsump: "0",
+  DiffWalk: "0",
   Sex: "",
   Age: "",
   Education: "",
   Income: "",
+  GenHlth: "",
+  threshold_type: "f1", // Selalu menggunakan threshold F1 yang seimbang
 };
 
 const genHlthOptions = [1, 2, 3, 4, 5];
@@ -46,7 +64,28 @@ function InputForm({ onPredict, disabled }) {
 
   const validate = () => {
     const newErrors = {};
-    Object.entries(values).forEach(([key, val]) => {
+    // Hanya validasi field input user yang ditampilkan di form
+    const inputFields = [
+      "HighBP",
+      "HighChol",
+      "CholCheck",
+      "BMI",
+      "Smoker",
+      "Stroke",
+      "HeartDiseaseorAttack",
+      "PhysActivity",
+      "Fruits",
+      "Veggies",
+      "HvyAlcoholConsump",
+      "DiffWalk",
+      "Sex",
+      "Age",
+      "Education",
+      "Income",
+      "GenHlth",
+    ];
+    inputFields.forEach((key) => {
+      const val = values[key];
       if (val === "" || val === null) newErrors[key] = "Wajib diisi";
     });
     setErrors(newErrors);
@@ -55,14 +94,41 @@ function InputForm({ onPredict, disabled }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!validate()) return;
-    const formatted = { ...values };
-    // Convert string to number for all fields kecuali Sex
-    Object.keys(formatted).forEach((k) => {
-      if (k !== "Sex") {
-        formatted[k] = Number(formatted[k]);
+    if (!validate()) {
+      console.log("Form tidak valid", values);
+      return;
+    }
+
+    // Ambil field input sesuai yang diterima backend
+    const backendFields = [
+      "HighBP",
+      "HighChol",
+      "CholCheck",
+      "BMI",
+      "Smoker",
+      "Stroke",
+      "HeartDiseaseorAttack",
+      "PhysActivity",
+      "Fruits",
+      "Veggies",
+      "HvyAlcoholConsump",
+      "GenHlth",
+      "DiffWalk",
+      "Sex",
+      "Age",
+      "Education",
+      "Income",
+      "threshold_type",
+    ];
+    const formatted = {};
+    backendFields.forEach((k) => {
+      if (k === "Sex" || k === "threshold_type") {
+        formatted[k] = values[k];
+      } else {
+        formatted[k] = Number(values[k]);
       }
     });
+    console.log("handleSubmit: onPredict dipanggil dengan", formatted);
     onPredict(formatted);
   };
 
@@ -70,7 +136,7 @@ function InputForm({ onPredict, disabled }) {
     <form className="input-form" onSubmit={handleSubmit}>
       <div className="form-grid">
         <label>
-          HighBP
+          Tekanan Darah Tinggi (HighBP)
           <select
             name="HighBP"
             value={values.HighBP}
@@ -87,7 +153,7 @@ function InputForm({ onPredict, disabled }) {
           {errors.HighBP && <span className="error">{errors.HighBP}</span>}
         </label>
         <label>
-          HighChol
+          Kolesterol Tinggi (HighChol)
           <select
             name="HighChol"
             value={values.HighChol}
@@ -104,7 +170,7 @@ function InputForm({ onPredict, disabled }) {
           {errors.HighChol && <span className="error">{errors.HighChol}</span>}
         </label>
         <label>
-          CholCheck
+          Pemeriksaan Kolesterol (CholCheck)
           <select
             name="CholCheck"
             value={values.CholCheck}
@@ -123,7 +189,7 @@ function InputForm({ onPredict, disabled }) {
           )}
         </label>
         <label>
-          BMI
+          Indeks Massa Tubuh (BMI)
           <input
             type="number"
             name="BMI"
@@ -137,7 +203,7 @@ function InputForm({ onPredict, disabled }) {
           {errors.BMI && <span className="error">{errors.BMI}</span>}
         </label>
         <label>
-          Smoker
+          Perokok (Smoker)
           <select
             name="Smoker"
             value={values.Smoker}
@@ -154,7 +220,7 @@ function InputForm({ onPredict, disabled }) {
           {errors.Smoker && <span className="error">{errors.Smoker}</span>}
         </label>
         <label>
-          Stroke
+          Pernah Stroke (Stroke)
           <select
             name="Stroke"
             value={values.Stroke}
@@ -171,7 +237,7 @@ function InputForm({ onPredict, disabled }) {
           {errors.Stroke && <span className="error">{errors.Stroke}</span>}
         </label>
         <label>
-          HeartDiseaseorAttack
+          Penyakit Jantung/Serangan Jantung (HeartDiseaseorAttack)
           <select
             name="HeartDiseaseorAttack"
             value={values.HeartDiseaseorAttack}
@@ -190,7 +256,7 @@ function InputForm({ onPredict, disabled }) {
           )}
         </label>
         <label>
-          PhysActivity
+          Aktivitas Fisik (PhysActivity)
           <select
             name="PhysActivity"
             value={values.PhysActivity}
@@ -209,7 +275,7 @@ function InputForm({ onPredict, disabled }) {
           )}
         </label>
         <label>
-          Fruits
+          Konsumsi Buah (Fruits)
           <select
             name="Fruits"
             value={values.Fruits}
@@ -226,7 +292,7 @@ function InputForm({ onPredict, disabled }) {
           {errors.Fruits && <span className="error">{errors.Fruits}</span>}
         </label>
         <label>
-          Veggies
+          Konsumsi Sayur (Veggies)
           <select
             name="Veggies"
             value={values.Veggies}
@@ -243,7 +309,7 @@ function InputForm({ onPredict, disabled }) {
           {errors.Veggies && <span className="error">{errors.Veggies}</span>}
         </label>
         <label>
-          HvyAlcoholConsump
+          Konsumsi Alkohol Berlebihan (HvyAlcoholConsump)
           <select
             name="HvyAlcoholConsump"
             value={values.HvyAlcoholConsump}
@@ -262,88 +328,7 @@ function InputForm({ onPredict, disabled }) {
           )}
         </label>
         <label>
-          AnyHealthcare
-          <select
-            name="AnyHealthcare"
-            value={values.AnyHealthcare}
-            onChange={handleChange}
-            disabled={disabled}
-          >
-            <option value="">Pilih</option>
-            {yesNoOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
-          {errors.AnyHealthcare && (
-            <span className="error">{errors.AnyHealthcare}</span>
-          )}
-        </label>
-        <label>
-          NoDocbcCost
-          <select
-            name="NoDocbcCost"
-            value={values.NoDocbcCost}
-            onChange={handleChange}
-            disabled={disabled}
-          >
-            <option value="">Pilih</option>
-            {yesNoOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
-          {errors.NoDocbcCost && (
-            <span className="error">{errors.NoDocbcCost}</span>
-          )}
-        </label>
-        <label>
-          GenHlth
-          <select
-            name="GenHlth"
-            value={values.GenHlth}
-            onChange={handleChange}
-            disabled={disabled}
-          >
-            <option value="">Pilih</option>
-            {genHlthOptions.map((opt) => (
-              <option key={opt} value={opt}>
-                {opt}
-              </option>
-            ))}
-          </select>
-          {errors.GenHlth && <span className="error">{errors.GenHlth}</span>}
-        </label>
-        <label>
-          MentHlth
-          <input
-            type="number"
-            name="MentHlth"
-            value={values.MentHlth}
-            onChange={handleChange}
-            disabled={disabled}
-            min="0"
-            max="30"
-          />
-          {errors.MentHlth && <span className="error">{errors.MentHlth}</span>}
-        </label>
-        <label>
-          PhysHlth
-          <input
-            type="number"
-            name="PhysHlth"
-            value={values.PhysHlth}
-            onChange={handleChange}
-            disabled={disabled}
-            min="0"
-            max="30"
-          />
-          {errors.PhysHlth && <span className="error">{errors.PhysHlth}</span>}
-        </label>
-        <label>
-          DiffWalk
+          Kesulitan Berjalan (DiffWalk)
           <select
             name="DiffWalk"
             value={values.DiffWalk}
@@ -360,7 +345,7 @@ function InputForm({ onPredict, disabled }) {
           {errors.DiffWalk && <span className="error">{errors.DiffWalk}</span>}
         </label>
         <label>
-          Sex
+          Jenis Kelamin (Sex)
           <select
             name="Sex"
             value={values.Sex}
@@ -368,16 +353,13 @@ function InputForm({ onPredict, disabled }) {
             disabled={disabled}
           >
             <option value="">Pilih</option>
-            {sexOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
           </select>
           {errors.Sex && <span className="error">{errors.Sex}</span>}
         </label>
         <label>
-          Age
+          Kelompok Usia (Age)
           <input
             type="number"
             name="Age"
@@ -391,7 +373,7 @@ function InputForm({ onPredict, disabled }) {
           {errors.Age && <span className="error">{errors.Age}</span>}
         </label>
         <label>
-          Education
+          Pendidikan (Education)
           <input
             type="number"
             name="Education"
@@ -401,13 +383,15 @@ function InputForm({ onPredict, disabled }) {
             min="1"
             max="6"
           />
-          <span className="hint">1: Never, 2: Elementary, ..., 6: College</span>
+          <span className="hint">
+            1: Tidak Pernah, 2: SD, ..., 6: Perguruan Tinggi
+          </span>
           {errors.Education && (
             <span className="error">{errors.Education}</span>
           )}
         </label>
         <label>
-          Income
+          Penghasilan (Income)
           <input
             type="number"
             name="Income"
@@ -418,11 +402,29 @@ function InputForm({ onPredict, disabled }) {
             max="8"
           />
           <span className="hint">
-            1: {"<"}10k, ..., 8: {">"}75k
+            1: {"<"}10jt, ..., 8: {">"}75jt
           </span>
           {errors.Income && <span className="error">{errors.Income}</span>}
         </label>
+        <label>
+          Kesehatan Umum (GenHlth)
+          <select
+            name="GenHlth"
+            value={values.GenHlth}
+            onChange={handleChange}
+            disabled={disabled}
+          >
+            <option value="">Pilih</option>
+            {genHlthOptions.map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
+            ))}
+          </select>
+          {errors.GenHlth && <span className="error">{errors.GenHlth}</span>}
+        </label>
       </div>
+
       <button className="predict-btn" type="submit" disabled={disabled}>
         Prediksi Diabetes
       </button>
