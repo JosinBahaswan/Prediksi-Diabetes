@@ -21,24 +21,48 @@ function PredictPage() {
   }, []);
 
   const handlePredict = async (values) => {
+    console.log("handlePredict called", values);
     setInputValues(values);
     setLoading(true);
     setError(null);
     setPrediction(null);
     try {
       const axios = (await import("axios")).default;
+
+      // Detailed logging of the request payload
+      console.log("Request payload:", JSON.stringify(values, null, 2));
+
       const response = await axios.post(
         // "https://backend-web-diabetes-production.up.railway.app/predict",
         "http://localhost:8000/predict",
         values
       );
+
+      console.log("Response received:", response);
+
       if (response.data && "prediction" in response.data) {
         setPrediction(response.data);
       } else if (response.data.error) {
         setError("Error: " + response.data.error);
       }
     } catch (err) {
-      setError("Gagal melakukan prediksi. Silakan coba lagi.");
+      console.error("API Error:", err);
+
+      // Log more detailed error information
+      if (err.response) {
+        console.error("Error response:", err.response.data);
+        console.error("Error status:", err.response.status);
+        console.error("Error headers:", err.response.headers);
+        setError(
+          `Error ${err.response.status}: ${JSON.stringify(err.response.data)}`
+        );
+      } else if (err.request) {
+        console.error("Error request:", err.request);
+        setError("No response received from server. Check network connection.");
+      } else {
+        console.error("Error message:", err.message);
+        setError("Error: " + err.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -52,6 +76,14 @@ function PredictPage() {
       exit={{ opacity: 0, y: -30 }}
       transition={{ duration: 0.5 }}
     >
+      <div className="model-notification">
+        <p>
+          ✨ Aplikasi ini sekarang menggunakan model yang telah dilatih dengan
+          teknik balancing dan feature engineering untuk hasil prediksi yang
+          lebih akurat dan seimbang. Semua input sekarang dipertimbangkan secara
+          lebih merata. ✨
+        </p>
+      </div>
       <h1 className="predict-title">Form Prediksi Diabetes</h1>
       <InputForm onPredict={handlePredict} disabled={loading} />
       {loading && <LoadingSpinner />}

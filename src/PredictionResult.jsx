@@ -60,6 +60,8 @@ function PredictionResult({ inputValues, prediction, metrics }) {
   // Probabilitas prediksi
   const probabilities = prediction?.probabilities;
   const classLabels = prediction?.class_labels || labels;
+  const thresholdUsed = prediction?.threshold_used;
+  const thresholdType = prediction?.threshold_type;
 
   // Gunakan label dari backend, fallback ke prediction.prediction atau prediction jika tidak ada
   const info = interpretResult(
@@ -87,7 +89,9 @@ function PredictionResult({ inputValues, prediction, metrics }) {
           </h2>
           <div className="result-main">
             <span
-              className={`result-label result-${info.label.replace(/\s/g, "").toLowerCase()}`}
+              className={`result-label result-${info.label
+                .replace(/\s/g, "")
+                .toLowerCase()}`}
             >
               {info.label}
             </span>
@@ -108,12 +112,16 @@ function PredictionResult({ inputValues, prediction, metrics }) {
               </h3>
               <table className="input-table">
                 <tbody>
-                  {Object.entries(inputValues).map(([key, val]) => (
-                    <tr key={key}>
-                      <td style={{ color: "#2d3a4b", fontWeight: 500 }}>{key}</td>
-                      <td style={{ color: "#3a4a5b" }}>{val}</td>
-                    </tr>
-                  ))}
+                  {Object.entries(inputValues)
+                    .filter(([key]) => key !== "threshold_type") // Tidak menampilkan threshold_type di tabel input
+                    .map(([key, val]) => (
+                      <tr key={key}>
+                        <td style={{ color: "#2d3a4b", fontWeight: 500 }}>
+                          {key}
+                        </td>
+                        <td style={{ color: "#3a4a5b" }}>{val}</td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </>
@@ -164,6 +172,23 @@ function PredictionResult({ inputValues, prediction, metrics }) {
                   </BarChart>
                 </ResponsiveContainer>
               </div>
+
+              {/* Informasi threshold */}
+              {thresholdUsed && (
+                <div className="threshold-info">
+                  <p>
+                    <strong>Mode Prediksi:</strong> Seimbang (F1-Score)
+                  </p>
+                  <p>
+                    <strong>Nilai Threshold:</strong>{" "}
+                    {(thresholdUsed * 100).toFixed(1)}%
+                  </p>
+                  <p className="threshold-explanation">
+                    Model ini memberikan keseimbangan antara deteksi diabetes
+                    dan non-diabetes.
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </>
