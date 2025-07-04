@@ -369,7 +369,12 @@ function InputForm({ onPredict, disabled }) {
             min="1"
             max="13"
           />
-          <span className="hint">1: 18-24, 2: 25-29, ..., 13: 80+</span>
+          <span className="hint">
+            1: 18-24 tahun, 2: 25-29 tahun, 3: 30-34 tahun, 4: 35-39 tahun, 5:
+            40-44 tahun, 6: 45-49 tahun, 7: 50-54 tahun, 8: 55-59 tahun, 9:
+            60-64 tahun, 10: 65-69 tahun, 11: 70-74 tahun, 12: 75-79 tahun, 13:
+            80+ tahun
+          </span>
           {errors.Age && <span className="error">{errors.Age}</span>}
         </label>
         <label>
@@ -384,7 +389,8 @@ function InputForm({ onPredict, disabled }) {
             max="6"
           />
           <span className="hint">
-            1: Tidak Pernah, 2: SD, ..., 6: Perguruan Tinggi
+            1: Tidak Sekolah, 2: SD/Sederajat, 3: SMP/Sederajat, 4:
+            SMA/Sederajat, 5: D1-D3/Sederajat, 6: S1/S2/S3
           </span>
           {errors.Education && (
             <span className="error">{errors.Education}</span>
@@ -402,7 +408,9 @@ function InputForm({ onPredict, disabled }) {
             max="8"
           />
           <span className="hint">
-            1: {"<"}10jt, ..., 8: {">"}75jt
+            1: Kurang dari 10jt/tahun, 2: 10-15jt/tahun, 3: 15-20jt/tahun, 4:
+            20-25jt/tahun, 5: 25-35jt/tahun, 6: 35-50jt/tahun, 7: 50-75jt/tahun,
+            8: Lebih dari 75jt/tahun
           </span>
           {errors.Income && <span className="error">{errors.Income}</span>}
         </label>
@@ -421,6 +429,9 @@ function InputForm({ onPredict, disabled }) {
               </option>
             ))}
           </select>
+          <span className="hint">
+            1: Sangat Baik, 2: Baik, 3: Cukup Baik, 4: Kurang Baik, 5: Buruk
+          </span>
           {errors.GenHlth && <span className="error">{errors.GenHlth}</span>}
         </label>
       </div>
