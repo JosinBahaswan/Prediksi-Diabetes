@@ -79,12 +79,12 @@ function PredictPage() {
       <div className="model-notification">
         <p>
           ✨ Aplikasi ini sekarang menggunakan model yang telah dilatih dengan
-          teknik balancing dan feature engineering untuk hasil prediksi yang
+          teknik balancing dan feature engineering untuk hasil klasifikasi yang
           lebih akurat dan seimbang. Semua input sekarang dipertimbangkan secara
           lebih merata. ✨
         </p>
       </div>
-      <h1 className="predict-title">Form Prediksi Diabetes</h1>
+      <h1 className="predict-title">Form Klasifikasi Diabetes</h1>
       <InputForm onPredict={handlePredict} disabled={loading} />
       {loading && <LoadingSpinner />}
       {error && <div className="error-message">{error}</div>}
@@ -95,7 +95,7 @@ function PredictPage() {
           metrics={metrics}
         />
       )}
-      {/* Tampilkan metrik jika tidak sedang prediksi */}
+      {/* Tampilkan metrik jika tidak sedang klasifikasi */}
       {!prediction && metrics && <PredictionResult metrics={metrics} />}
     </motion.main>
   );

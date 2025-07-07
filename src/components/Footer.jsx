@@ -10,10 +10,11 @@ function Footer() {
           className="footer-logo"
         />
         <span>
-          © {new Date().getFullYear()} Diabetes Predictor. All rights reserved.
+          © {new Date().getFullYear()} Diabetes Klasifikator. All rights
+          reserved.
         </span>
         <span className="footer-info">
-          Sistem prediksi berbasis Machine Learning untuk kesehatan Anda.
+          Sistem klasifikasi berbasis Machine Learning untuk kesehatan Anda.
         </span>
       </div>
     </footer>

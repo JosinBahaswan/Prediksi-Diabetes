@@ -437,7 +437,7 @@ function InputForm({ onPredict, disabled }) {
       </div>
 
       <button className="predict-btn" type="submit" disabled={disabled}>
-        Prediksi Diabetes
+        Klasifikasi Diabetes
       </button>
     </form>
   );

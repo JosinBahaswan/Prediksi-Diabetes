@@ -57,7 +57,7 @@ function PredictionResult({ inputValues, prediction, metrics }) {
     });
   }
 
-  // Probabilitas prediksi
+  // Probabilitas klasifikasi
   const probabilities = prediction?.probabilities;
   const classLabels = prediction?.class_labels || labels;
   const thresholdUsed = prediction?.threshold_used;
@@ -72,7 +72,7 @@ function PredictionResult({ inputValues, prediction, metrics }) {
 
   return (
     <div className="prediction-result">
-      {/* Selalu tampilkan hasil prediksi jika prediction ada */}
+      {/* Selalu tampilkan hasil klasifikasi jika prediction ada */}
       {prediction && (
         <>
           <h2
@@ -85,7 +85,7 @@ function PredictionResult({ inputValues, prediction, metrics }) {
               fontSize: "2rem",
             }}
           >
-            Hasil Prediksi
+            Hasil Klasifikasi
           </h2>
           <div className="result-main">
             <span
@@ -126,7 +126,7 @@ function PredictionResult({ inputValues, prediction, metrics }) {
               </table>
             </>
           )}
-          {/* Probabilitas prediksi */}
+          {/* Probabilitas klasifikasi */}
           {probabilities && classLabels && (
             <div style={{ margin: "2rem 0 1rem 0" }}>
               <h3
@@ -136,7 +136,7 @@ function PredictionResult({ inputValues, prediction, metrics }) {
                   fontSize: "1.1rem",
                 }}
               >
-                Probabilitas Prediksi
+                Probabilitas Klasifikasi
               </h3>
               <table className="proba-table">
                 <thead>
@@ -173,11 +173,11 @@ function PredictionResult({ inputValues, prediction, metrics }) {
                 </ResponsiveContainer>
               </div>
 
-              {/* Informasi threshold */}
+              {/* Informasi threshold klasifikasi   */}
               {thresholdUsed && (
                 <div className="threshold-info">
                   <p>
-                    <strong>Mode Prediksi:</strong> Seimbang (F1-Score)
+                    <strong>Mode Klasifikasi:</strong> Seimbang (F1-Score)
                   </p>
                   <p>
                     <strong>Nilai Threshold:</strong>{" "}

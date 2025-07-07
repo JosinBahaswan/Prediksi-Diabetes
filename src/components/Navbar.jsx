@@ -25,7 +25,7 @@ function Navbar() {
           src="https://cdn-icons-png.flaticon.com/512/2966/2966484.png"
           alt="Logo"
         />
-        <span>Diabetes Predictor</span>
+        <span>Diabetes Klasifikator</span>
       </div>
       <button className="navbar-toggle" onClick={() => setMenuOpen((v) => !v)}>
         <span className="bar"></span>
@@ -82,10 +82,12 @@ function Navbar() {
         <li>
           <NavLink
             to="/predict"
-            className={({ isActive }) => `prediksi-btn${isActive ? ' active' : ''}`}
+            className={({ isActive }) =>
+              `klasifikasi-btn${isActive ? " active" : ""}`
+            }
             onClick={() => setMenuOpen(false)}
           >
-            Prediksi
+            Klasifikasi
           </NavLink>
         </li>
       </ul>
